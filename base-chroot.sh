@@ -28,11 +28,11 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 luks_bid=$(blkid | grep "crypto LUKS" | grep -o -P '(?<=UUID=").*(?=" LABEL)')
 
-grublno=$(grep -Fn 'GRUB_CMDLINE_LINUX=' /boot/grub/grub.cfg | cut -f1 -d":")
+grublno=$(grep -Fn 'GRUB_CMDLINE_LINUX=' /etc/default/grub | cut -f1 -d":")
 
-sed -i -e "${grublno}d" /boot/grub/grub.cfg
+sed -i -e "${grublno}d" /etc/default/grub
 
-sed -i "${grublno}i GRUB_CMDLINE_LINUX=cryptdevice=UUID=${luks_bid}:cryptroot root=/dev/mapper/cryptroot" /boot/grub/grub.cfg
+sed -i "${grublno}i GRUB_CMDLINE_LINUX=cryptdevice=UUID=${luks_bid}:cryptroot root=/dev/mapper/cryptroot" /etc/default/grub
 
 grub-mkconfig -o /boot/grub/grub.cfg 
 
