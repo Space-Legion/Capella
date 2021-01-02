@@ -16,9 +16,9 @@ passwd
 
 pacman -S grub efibootmgr networkmanager --needed --noconfirm 
 
-#sed -i 's/base udev autodetect modconf block filesystems keyboard fsck/base udev autodetect modconf block encrypt filesystems keyboard fsck/g' /etc/mkinitcpio.conf
+sed -i 's/base udev autodetect modconf block filesystems keyboard fsck/base udev autodetect modconf block encrypt filesystems keyboard fsck/g' /etc/mkinitcpio.conf
 
-vim /etc/mkinitcpio.conf
+#vim /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
     
@@ -28,7 +28,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 luks_bid=$(blkid | grep "crypto LUKS" | grep -o -P '(?<=UUID=").*(?=" LABEL)')
 
-sed -i 's/GRUB_CMDLINE_LINUX=/GRUB_CMDLINE_LINUX=cryptdevice=UUID=$luks_bid:cryptroot/g' /boot/grub/grub.cfg
+grublno=$(grep -Fn 'GRUB_CMDLINE_LINUX=' /boot/grub/grub.cfg | awk '{ print $1 }'| cut -f1 -d":") && sed -i -e "${grublno}d" /boot/grub/grub.cfg | sed -i "${lineno}i  GRUB_CMDLINE_LINUX=cryptdevice=UUID=$luks_bid:cryptroot root=/dev/mapper/cryptroot"  /boot/grub/grub.cfg
 
 grub-mkconfig -o /boot/grub/grub.cfg 
 
