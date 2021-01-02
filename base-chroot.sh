@@ -26,7 +26,7 @@ grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 
 grub-mkconfig -o /boot/grub/grub.cfg 
 
-luks_bid=$(blkid | grep "crypto LUKS" | grep -o -P '(?<=UUID=").*(?=" LABEL)')
+luks_bid=$(blkid | grep "crypto_LUKS" | grep -o -P '(?<=UUID=").*(?="\sTYPE)')
 
 grublno=$(grep -Fn 'GRUB_CMDLINE_LINUX=' /etc/default/grub | cut -f1 -d":")
 
