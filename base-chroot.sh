@@ -16,7 +16,9 @@ passwd
 
 pacman -S grub efibootmgr networkmanager --needed --noconfirm 
 
-sed -i 's/base udev autodetect modconf block filesystems keyboard fsck/base udev autodetect modconf block encrypt filesystems keyboard fsck/g' /etc/mkinitcpio.conf
+#sed -i 's/base udev autodetect modconf block filesystems keyboard fsck/base udev autodetect modconf block encrypt filesystems keyboard fsck/g' /etc/mkinitcpio.conf
+
+vim /etc/mkinitcpio.conf
 
 mkinitcpio -p linux
     
