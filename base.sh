@@ -14,6 +14,9 @@ enc_pass
 echo " selected pw is: $ENCRPYTION_PASS1"
 
 
+lsblk
+
+
 read -p "Drive Name (eg: /dev/sda) : " DRIVE
 
 
