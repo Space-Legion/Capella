@@ -24,6 +24,12 @@ grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 
 grub-mkconfig -o /boot/grub/grub.cfg 
 
+luks_bid=$(blkid | grep "crypto LUKS" | grep -o -P '(?<=UUID=").*(?=" LABEL)')
+
+sed -i 's/GRUB_CMDLINE_LINUX=/GRUB_CMDLINE_LINUX=cryptdevice=UUID=$luks_bid:cryptroot/g' /boot/grub/grub.cfg
+
+grub-mkconfig -o /boot/grub/grub.cfg 
+
 systemctl enable NetworkManager 
 
 useradd -mG wheel user
