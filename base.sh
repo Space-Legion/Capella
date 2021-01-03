@@ -50,7 +50,7 @@ mkdir /mnt/boot
 mount /dev/$DISK_EFI /mnt/boot
 
 
-pacstrap /mnt base sudo linux linux-firmware vim git
+pacstrap /mnt base sudo linux-lts linux-firmware vim git
 
 
 genfstab -U /mnt >> /mnt/etc/fstab 
