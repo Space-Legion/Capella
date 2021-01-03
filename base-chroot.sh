@@ -32,7 +32,11 @@ grublno=$(grep -Fn 'GRUB_CMDLINE_LINUX=' /etc/default/grub | cut -f1 -d":")
 
 sed -i -e "${grublno}d" /etc/default/grub
 
-sed -i "${grublno}i GRUB_CMDLINE_LINUX=cryptdevice=UUID=${luks_bid}:cryptroot root=/dev/mapper/cryptroot" /etc/default/grub
+varg="cryptdevice=UUID=${luks_bid}:cryptroot root=/dev/mapper/cryptroot"
+
+varq=$(echo $varg | sed 's/^/"/;s/$/"/')
+
+sed -i "${grublno}i GRUB_CMDLINE_LINUX=${varq}"  /etc/default/grub
 
 grub-mkconfig -o /boot/grub/grub.cfg 
 
