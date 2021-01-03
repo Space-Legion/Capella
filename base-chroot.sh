@@ -20,7 +20,7 @@ sed -i 's/base udev autodetect modconf block filesystems keyboard fsck/base udev
 
 #vim /etc/mkinitcpio.conf
 
-mkinitcpio -p linux
+mkinitcpio -p linux-lts
     
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB 
 
