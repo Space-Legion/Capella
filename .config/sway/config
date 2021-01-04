@@ -1,18 +1,14 @@
 
-
-
-
+##fonts
 
 font pango:JetBrains Mono Bold 12px 
+
+##gaps
+
 default_border pixel 2
 titlebar_border_thickness 2
 gaps outer 10 
 gaps inner 10
-
-
-
-
-
 
 
 
