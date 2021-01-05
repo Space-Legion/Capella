@@ -1,4 +1,4 @@
-timedatectl set-ntp true
+
 
 
 enc_pass() {
@@ -11,8 +11,7 @@ enc_pass() {
 }
 enc_pass 
 
-echo " selected pw is: $ENCRPYTION_PASS1"
-
+timedatectl set-ntp true && enc_pass 
 
 lsblk
 
@@ -20,16 +19,32 @@ lsblk
 read -p "Drive Name (eg: /dev/sda) : " DRIVE
 
 
-cfdisk $DRIVE
+# cfdisk $DRIVE
+
+
+
+cat <<EOF | parted -a optimal $DRIVE
+
+
+mklabel GPT
+
+
+mkpart primary fat32 0% 250M
+
+
+set 1 boot on
+
+
+mkpart primary ext4 250m 100%
+
+
+EOF
 
 
 lsblk $DRIVE && read -p "EFI partition : " DISK_EFI
 
 
 read -p "root partition : " DISK_ROOT
-
-
-mkfs.fat -F32 /dev/$DISK_EFI
 
 
 echo -n "$ENCRPYTION_PASS1" | cryptsetup -y -v luksFormat /dev/$DISK_ROOT
