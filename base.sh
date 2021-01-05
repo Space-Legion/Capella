@@ -9,7 +9,7 @@ enc_pass() {
 
 	[[ "$ENCRPYTION_PASS0" !=  "$ENCRPYTION_PASS1" ]] && enc_pass
 }
-enc_pass 
+
 
 timedatectl set-ntp true && enc_pass 
 
@@ -22,22 +22,10 @@ read -p "Drive Name (eg: /dev/sda) : " DRIVE
 # cfdisk $DRIVE
 
 
-
 cat <<EOF | parted -a optimal $DRIVE
-
-
 mklabel GPT
-
-
-mkpart primary fat32 0% 250M
-
-
-set 1 boot on
-
-
+mkpart primary ESP fat32 0% 250M
 mkpart primary ext4 250M 100%
-
-
 EOF
 
 
@@ -57,6 +45,9 @@ mkfs.ext4 /dev/mapper/cryptroot
 
 
 mount /dev/mapper/cryptroot /mnt
+
+
+mkfs.fat -F32 /dev/$DISK_EFI
 
 
 mkdir /mnt/boot
