@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 
@@ -26,7 +29,7 @@ passwd
 
 }
 
-root_pass
+printf "Enter the password for root" && root_pass
 
 
 pacman -S grub efibootmgr networkmanager --needed --noconfirm 
@@ -86,7 +89,7 @@ passwd user
 }
 
 
-user_pass
+printf "Enter password for user" && user_pass
 
 
 
