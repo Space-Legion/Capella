@@ -18,8 +18,15 @@ echo LANG=en_US.UTF-8 >> /etc/locale.conf
 
 echo host >> /etc/hostname 
 
+root_pass () {
 
 passwd 
+
+[[ $? != 0 ]] && root_pass
+
+}
+
+root_pass
 
 
 pacman -S grub efibootmgr networkmanager --needed --noconfirm 
@@ -67,7 +74,20 @@ systemctl enable NetworkManager
 useradd -mG wheel user
 
 
-passwd user 
+user_pass () {
+
+
+passwd user
+
+
+[[ $? != 0 ]] && user_pass
+
+
+}
+
+
+user_pass
+
 
 
 echo "root ALL=(ALL) ALL 
