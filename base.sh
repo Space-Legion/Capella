@@ -35,7 +35,7 @@ mkpart primary fat32 0% 250M
 set 1 boot on
 
 
-mkpart primary ext4 250m 100%
+mkpart primary ext4 250M 100%
 
 
 EOF
