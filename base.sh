@@ -7,7 +7,7 @@ enc_pass() {
 	echo "Retype Drive Encryption password :"
 	read  ENCRPYTION_PASS1 
 
-	[[ "$ENCRPYTION_PASS0" !=  "$ENCRPYTION_PASS1" ]] && echo "Passwords do not match, type again" && enc_pass
+	[[ "$ENCRPYTION_PASS0" !=  "$ENCRPYTION_PASS1" ]] && enc_pass
 }
 enc_pass 
 
