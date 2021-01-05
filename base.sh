@@ -1,17 +1,17 @@
-
+#!/bin/bash
 
 
 enc_pass() {
 	echo "Drive Encryption password :"
 	read  ENCRPYTION_PASS0
-	echo "Retype Drive Encryption password :"
+	echo "Confirm Drive Encryption password :"
 	read  ENCRPYTION_PASS1 
-
 	[[ "$ENCRPYTION_PASS0" !=  "$ENCRPYTION_PASS1" ]] && enc_pass
 }
 
 
-timedatectl set-ntp true && enc_pass 
+enc_pass 
+
 
 lsblk
 
@@ -19,12 +19,9 @@ lsblk
 read -p "Drive Name (eg: /dev/sda) : " DRIVE
 
 
-# cfdisk $DRIVE
-
-
 cat <<EOF | parted -a optimal $DRIVE
 mklabel GPT
-mkpart primary ESP fat32 0% 250M
+mkpart ESP fat32 0% 250M
 mkpart primary ext4 250M 100%
 EOF
 
