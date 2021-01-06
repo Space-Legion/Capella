@@ -60,7 +60,7 @@ cat <<EOF | parted -a optimal $DRIVE
 mklabel GPT
 mkpart ESP fat32 0% 250M
 mkpart primary ext4 250M 100%
-
+EOF
 
 }
 
