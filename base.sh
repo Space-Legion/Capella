@@ -14,7 +14,7 @@ enc_pass
 
 
 single_disk () {
-DISK="$(lsblk --list | grep 'disk' | awk '{print $1}')"
+DISK="$(lsblk --list | grep 'disk' | awk '{printf $1}')"
     while true; do
 		read -p "$* >install on $DISK [y/n]: " yn
 		case $yn in
@@ -26,7 +26,7 @@ DISK="$(lsblk --list | grep 'disk' | awk '{print $1}')"
 
 manual_disk() {
 
-lsblk && read -p "Drive Name (eg: sda or nvme) : " DRIVE
+lsblk && read -p "Drive Name (eg: sda or nvme) : " DISK
 
 disk_partition
 
@@ -59,8 +59,8 @@ disk_partition
 disk_partition() {
 
 
-wipefs -a -f $DISK
-cat <<EOF | parted -a optimal $DRIVE
+wipefs -a -f /dev/$DISK
+cat <<EOF | parted -a optimal /dev/$DISK
 mklabel GPT
 mkpart ESP fat32 0% 250M
 mkpart primary ext4 250M 100%
