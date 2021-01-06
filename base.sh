@@ -13,23 +13,43 @@ enc_pass() {
 enc_pass 
 
 
-lsblk
+single_disk () {
+	DISK="$(lsblk --list | grep 'disk' | awk '{print $1}')"
+    while true; do
+		read -p "$* install on $DISK [y/n]: " yn
+		case $yn in
+			   [Yy]*) disk_partition ;;
+			   [Nn]*) multi_disk ;;
+		esac
+		done
+}
+
+manual_disk() {
+
+lsblk && read -p "Drive Name (eg: /dev/sda) : " DRIVE
+
+}
 
 
-read -p "Drive Name (eg: /dev/sda) : " DRIVE
+disk_partition() {
 
+wipefs -a -f $DISK
+cat < 0 && REPLY <= ${#options[@]} )) ; then
+	        DISK="$opt"
+			echo  "installing on $opt"
+    	    break
+	    else
+        	echo "Invalid option. Try again."
+	    fi
+done
 
-cat <<EOF | parted -a optimal $DRIVE
-mklabel GPT
-mkpart ESP fat32 0% 250M
-mkpart primary ext4 250M 100%
-EOF
+}
 
+[[ $(lsblk | grep 'disk' | wc -l) == 1 ]] && single_disk || multi_disk
 
-lsblk $DRIVE && read -p "EFI partition : " DISK_EFI
+DISK_EFI="$(lsblk --list -o +PARTLABEL $DISK | grep 'EFI' | awk '{ print $1 }')"
 
-
-read -p "root partition : " DISK_ROOT
+DISK_ROOT="$(lsblk --list -o +PARTLABEL $DISK | grep 'primary' | awk '{ print $1 }')"
 
 
 echo -n "$ENCRPYTION_PASS1" | cryptsetup -y -v luksFormat /dev/$DISK_ROOT
@@ -75,6 +95,4 @@ umount -R /mnt
 
 
 reboot
-
-
 
