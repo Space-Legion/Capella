@@ -89,7 +89,7 @@ passwd user
 }
 
 
-printf "Enter password for user" && user_pass
+printf "Enter password for user:\n" && user_pass
 
 
 
