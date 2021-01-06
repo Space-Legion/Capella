@@ -95,4 +95,19 @@ echo "root ALL=(ALL) ALL
 @includedir /etc/sudoers.d" > /etc/sudoers
 
 
+echo -e "printf '
+The base installation has been completed
+
+Before proceeding, make sure you are connected to the internet
+
+To continue the post installation clone the main repo
+
+ie, git clone https://github.com/Space-Legion/Capella and run sway.sh
+
+'" >> /home/user/.bashrc
+
+
+echo "rm .bashrc" >> /home/user/.bashrc
+
+
 exit
