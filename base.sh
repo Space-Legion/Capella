@@ -14,7 +14,7 @@ enc_pass
 
 
 single_disk () {
-	DISK="$(lsblk --list | grep 'disk' | awk '{print $1}')"
+DISK="$(lsblk --list | grep 'disk' | awk '{print $1}')"
     while true; do
 		read -p "$* install on $DISK [y/n]: " yn
 		case $yn in
@@ -31,10 +31,17 @@ lsblk && read -p "Drive Name (eg: /dev/sda) : " DRIVE
 }
 
 
-disk_partition() {
 
-wipefs -a -f $DISK
-cat < 0 && REPLY <= ${#options[@]} )) ; then
+multi_disk() {
+
+prompt="Please select the disk to install:"
+options=( $(lsblk --list | grep 'disk' | awk '{ printf $1}') )
+
+PS3="$prompt "
+select opt in "${options[@]}" "Enter manually" ; do
+	    if (( REPLY == 1 + ${#options[@]} )) ; then
+			manual_disk
+		    elif (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
 	        DISK="$opt"
 			echo  "installing on $opt"
     	    break
@@ -44,6 +51,19 @@ cat < 0 && REPLY <= ${#options[@]} )) ; then
 done
 
 }
+
+disk_partition() {
+
+
+wipefs -a -f $DISK
+cat <<EOF | parted -a optimal $DRIVE
+mklabel GPT
+mkpart ESP fat32 0% 250M
+mkpart primary ext4 250M 100%
+
+
+}
+
 
 [[ $(lsblk | grep 'disk' | wc -l) == 1 ]] && single_disk || multi_disk
 
