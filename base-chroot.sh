@@ -95,19 +95,4 @@ echo "root ALL=(ALL) ALL
 @includedir /etc/sudoers.d" > /etc/sudoers
 
 
-chmod +x .config/wofi/* 
-
-
-chmod +x post-install.sh
-
-
-cp -r .config post-install.sh /home/user/
-
-
-echo "bash post-install.sh" >> /home/user/.bashrc
-
-
-rm -r .config post-install.sh
-
-
 exit
