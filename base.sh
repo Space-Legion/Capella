@@ -16,7 +16,7 @@ enc_pass
 single_disk () {
 DISK="$(lsblk --list | grep 'disk' | awk '{print $1}')"
     while true; do
-		read -p "$* install on $DISK [y/n]: " yn
+		read -p "$* >install on $DISK [y/n]: " yn
 		case $yn in
 			   [Yy]*) disk_partition ;;
 			   [Nn]*) multi_disk ;;
@@ -26,7 +26,7 @@ DISK="$(lsblk --list | grep 'disk' | awk '{print $1}')"
 
 manual_disk() {
 
-lsblk && read -p "Drive Name (eg: /dev/sda) : " DRIVE
+lsblk && read -p "Drive Name (eg: sda or nvme) : " DRIVE
 
 disk_partition
 
@@ -73,7 +73,7 @@ mount_disk
 mount_disk() {
 
 
-DISK_EFI="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'EFI' | awk '{ print $1 }')"
+DISK_EFI="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'ESP' | awk '{ print $1 }')"
 
 DISK_ROOT="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'primary' | awk '{ print $1 }')"
 
