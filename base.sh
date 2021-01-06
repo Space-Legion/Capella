@@ -43,7 +43,7 @@ select opt in "${options[@]}" "Enter manually" ; do
 			manual_disk
 		    elif (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
 	        DISK="$opt"
-			echo  "installing on $opt"
+			echo  "installing on $opt"; disk_partition
     	    break
 	    else
         	echo "Invalid option. Try again."
@@ -62,14 +62,18 @@ mkpart ESP fat32 0% 250M
 mkpart primary ext4 250M 100%
 EOF
 
+mount_disk
+
 }
+
+mount_disk() {
 
 
 [[ $(lsblk | grep 'disk' | wc -l) == 1 ]] && single_disk || multi_disk
 
-DISK_EFI="$(lsblk --list -o +PARTLABEL $DISK | grep 'EFI' | awk '{ print $1 }')"
+DISK_EFI="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'EFI' | awk '{ print $1 }')"
 
-DISK_ROOT="$(lsblk --list -o +PARTLABEL $DISK | grep 'primary' | awk '{ print $1 }')"
+DISK_ROOT="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'primary' | awk '{ print $1 }')"
 
 
 echo -n "$ENCRPYTION_PASS1" | cryptsetup -y -v luksFormat /dev/$DISK_ROOT
@@ -92,6 +96,9 @@ mkdir /mnt/boot
 
 mount /dev/$DISK_EFI /mnt/boot
 
+}
+
+base_pacstrap() {
 
 pacstrap /mnt base sudo linux-lts linux-firmware vim git
 
@@ -116,3 +123,7 @@ umount -R /mnt
 
 reboot
 
+}
+
+
+[[ $(lsblk | grep 'disk' | wc -l) ]] && single_disk "$@" || multi_disk "$@" 
