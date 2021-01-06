@@ -73,8 +73,6 @@ mount_disk
 mount_disk() {
 
 
-[[ $(lsblk | grep 'disk' | wc -l) == 1 ]] && single_disk || multi_disk
-
 DISK_EFI="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'EFI' | awk '{ print $1 }')"
 
 DISK_ROOT="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'primary' | awk '{ print $1 }')"
