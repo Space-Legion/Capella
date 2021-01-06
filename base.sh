@@ -113,9 +113,6 @@ genfstab -U /mnt >> /mnt/etc/fstab
 cp base-chroot.sh /mnt/base-chroot.sh 
 
 
-cp -r .config post-install.sh /mnt/
-
-
 chmod +x /mnt/base-chroot.sh 
 
 
