@@ -47,9 +47,9 @@ set $menu wofi --show drun,run -show-icons | xargs swaymsg exec --
 ##############Output configuration####################### 
 
 
-#output * bg /$HOME/1.png fill
+output * bg /$HOME/.config/1.jpg fill
 
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 
 ##################### Key bindings##########################
