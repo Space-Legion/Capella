@@ -4,5 +4,7 @@ chmod +x .config/wofi/*
 
 cp -r .config /home/user/
 
+curl https://raw.githubusercontent.com/nebulaxyz/walls/main/1145374.jpg > /home/user/.config/1.jpg
+
 sway
 
