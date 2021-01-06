@@ -29,7 +29,7 @@ passwd
 
 }
 
-printf "Enter the password for root" && root_pass
+printf "Enter the password for root:\n" && root_pass
 
 
 pacman -S grub efibootmgr networkmanager --needed --noconfirm 
