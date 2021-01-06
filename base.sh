@@ -28,6 +28,8 @@ manual_disk() {
 
 lsblk && read -p "Drive Name (eg: /dev/sda) : " DRIVE
 
+disk_partition
+
 }
 
 
@@ -49,6 +51,8 @@ select opt in "${options[@]}" "Enter manually" ; do
         	echo "Invalid option. Try again."
 	    fi
 done
+
+disk_partition
 
 }
 
@@ -95,6 +99,8 @@ mkdir /mnt/boot
 
 
 mount /dev/$DISK_EFI /mnt/boot
+
+base_pacstrap
 
 }
 
