@@ -1,6 +1,5 @@
 ignore-empty-password
 ## no-unlock-indicator
-
-image=~/home/user/.config/wall.png
+image=~/.config/wallpaper/wall.png
 
 
