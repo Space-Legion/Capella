@@ -1,35 +1,81 @@
-timedatectl set-ntp true
+#!/bin/bash
 
 
 enc_pass() {
 	echo "Drive Encryption password :"
 	read  ENCRPYTION_PASS0
-	echo "Retype Drive Encryption password :"
+	echo "Confirm Drive Encryption password :"
 	read  ENCRPYTION_PASS1 
-
-	[[ "$ENCRPYTION_PASS0" !=  "$ENCRPYTION_PASS1" ]] && echo "Passwords do not match, type again" && enc_pass
+	[[ "$ENCRPYTION_PASS0" !=  "$ENCRPYTION_PASS1" ]] && enc_pass
 }
+
+
 enc_pass 
 
-echo " selected pw is: $ENCRPYTION_PASS1"
+
+single_disk () {
+DISK="$(lsblk --list | grep 'disk' | awk '{printf $1}')"
+    while true; do
+		read -p "$* >install on $DISK [y/n]: " yn
+		case $yn in
+			   [Yy]*) disk_partition ;;
+			   [Nn]*) multi_disk ;;
+		esac
+		done
+}
+
+manual_disk() {
+
+lsblk && read -p "Drive Name (eg: sda or nvme) : " DISK
+
+disk_partition
+
+}
 
 
-lsblk
+
+multi_disk() {
+
+prompt="Please select the disk to install:"
+options=( $(lsblk --list | grep 'disk' | awk '{ printf $1}') )
+
+PS3="$prompt "
+select opt in "${options[@]}" "Enter manually" ; do
+	    if (( REPLY == 1 + ${#options[@]} )) ; then
+			manual_disk
+		    elif (( REPLY > 0 && REPLY <= ${#options[@]} )) ; then
+	        DISK="$opt"
+			echo  "installing on $opt"; disk_partition
+    	    break
+	    else
+        	echo "Invalid option. Try again."
+	    fi
+done
+
+disk_partition
+
+}
+
+disk_partition() {
 
 
-read -p "Drive Name (eg: /dev/sda) : " DRIVE
+wipefs -a -f /dev/$DISK
+cat <<EOF | parted -a optimal /dev/$DISK
+mklabel GPT
+mkpart ESP fat32 0% 250M
+mkpart primary ext4 250M 100%
+EOF
+
+mount_disk
+
+}
+
+mount_disk() {
 
 
-cfdisk $DRIVE
+DISK_EFI="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'ESP' | awk '{ print $1 }')"
 
-
-lsblk $DRIVE && read -p "EFI partition : " DISK_EFI
-
-
-read -p "root partition : " DISK_ROOT
-
-
-mkfs.fat -F32 /dev/$DISK_EFI
+DISK_ROOT="$(lsblk --list -o +PARTLABEL /dev/$DISK | grep 'primary' | awk '{ print $1 }')"
 
 
 echo -n "$ENCRPYTION_PASS1" | cryptsetup -y -v luksFormat /dev/$DISK_ROOT
@@ -44,11 +90,19 @@ mkfs.ext4 /dev/mapper/cryptroot
 mount /dev/mapper/cryptroot /mnt
 
 
+mkfs.fat -F32 /dev/$DISK_EFI
+
+
 mkdir /mnt/boot
 
 
 mount /dev/$DISK_EFI /mnt/boot
 
+base_pacstrap
+
+}
+
+base_pacstrap() {
 
 pacstrap /mnt base sudo linux-lts linux-firmware vim git
 
@@ -70,5 +124,7 @@ umount -R /mnt
 
 reboot
 
+}
 
 
+[[ $(lsblk | grep 'disk' | wc -l) ]] && single_disk "$@" || multi_disk "$@" 

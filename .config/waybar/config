@@ -1,0 +1,139 @@
+{
+	   "layer": "top",
+	   "position": "top",
+       "height": 30,
+
+
+	"modules-left": [
+		"sway/workspaces",
+		"sway/mode"
+	   ],
+
+
+
+    "modules-center": [
+     "custom/menu"
+
+    ],
+
+	
+
+
+     "modules-right": [
+      "custom/vol",
+       "cpu",
+       "memory", 
+       "network",
+       "tray",
+       "clock",
+       "custom/power"  
+      ],
+     
+
+      // ------------------------------------------------------------------------
+     // Modules
+    // -------------------------------------------------------------------------
+
+
+"sway/mode": {
+        "format": "<span style=\"italic\">{}</span>",
+        "tooltip": false
+},
+
+
+
+
+"sway/window": {
+        "format": "{}",
+        "max-length": 120
+},
+
+
+
+
+"sway/workspaces": {
+        "all-outputs": false,
+        "disable-scroll": true,
+        "format": "{name}"
+},
+
+
+ 
+
+
+"custom/menu": {
+        "format": "<span font='25'>﨩</span>",
+        "on-click": "torbrowser-launcher"
+},
+
+
+
+
+
+
+ "custom/power": {
+         "format":"<span font='18'>⏻</span>",
+	 "on-click":"bash /$HOME/.config/wofi/powermenu.sh"
+},
+ 
+
+
+
+
+
+  "custom/vol": {
+        "format":"<span font='15'>墳</span>",
+	"on-scroll-up": "amixer -q sset Master 5%+",
+	"on-scroll-down": "amixer -q sset Master 5%-",
+        "on-click": "amixer -q sset Master toggle"      
+},
+
+
+
+
+
+
+  
+
+"network": {
+        "interval": 5,
+        "format-wifi": " {essid} ({signalStrength}%)", // Icon: wifi
+        "format-ethernet": ": {ifname}", // Icon: ethernet
+        "format-disconnected": "  Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}",
+
+},
+
+
+
+
+
+"memory": {
+        "interval": 5,
+        "format": "RAM {}%", // Icon: memory
+},
+
+    
+
+    
+"cpu": {
+        "interval": 5,
+        "format": "CPU {usage}%", // Icon: microchip
+},
+
+
+
+"clock": {
+        "interval": 60,
+        "format": "{:%e %b %Y %H:%M}", // Icon: calendar-alt
+        "tooltip": true,
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>"
+},
+
+
+
+
+"tray": {
+		"icon-size": 20
+	}
+}
