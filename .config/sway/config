@@ -155,6 +155,19 @@ exec_always {
     bindsym $mod+Shift+9 move container to workspace 9
     bindsym $mod+Shift+0 move container to workspace 10
 
+
+
+
+
+
+# set specific windows to floating mode
+for_window [class="Tor Browser"]                      floating enable
+
+
+
+
+
+
 # Layout stuff:
     
     bindsym $mod+b splith
