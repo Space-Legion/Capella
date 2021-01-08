@@ -1,30 +1,13 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 
-
-wofi_command="wofi -theme /$HOME/.config/rofi/powermenu -width 20 -dmenu -i -p wofi-power:"
-
-# Options
-shutdown=" Shutdown"
-reboot="勒 Reboot"
-lock=" Lock"
-logout=" Logout"
-
-# Variable passed to rofi
-options="$shutdown\n$reboot\n$lock\n$logout"
-
-chosen=`echo -e $options | $wofi_command` # | awk '{print $1}' | tr -d '\r\n'`
+#chosen="$(echo -e 'Shutdown\nReboot\nLock\nSuspend\nHibernate\nLogout' | wofi -d -L 6 -W 200 -H 200 -p 'Powermenu')"
+chosen="$(echo -e 'Shutdown\nReboot\nLock\nLogout' | wofi -d -L 5 -W 200 -H 200 -p 'Powermenu')"
 case $chosen in
-    $shutdown)
-        poweroff
-	;;
-    $reboot)
-        reboot
-	;;
-    $lock)
-        i3lock -c 2e3440
-	;;
-    $logout)
-        pkill -KILL -u $USER
-	;;
+    Shutdown)systemctl poweroff ;;
+    Reboot) systemctl reboot ;;
+    Lock) swaylock -c 550000 ;;
+    #Suspend) systemctl suspend ;;
+    #Hibernate) systemctl hibernate ;;
+    Logout) swaymsg exit ;;
 esac
-
+exit
