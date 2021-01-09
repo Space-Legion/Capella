@@ -42,19 +42,19 @@ Hidden "space" cloak is produced independently of, with no guarantee from, Arch 
 
 #### Cloak script's highlights
 
-- **Base installation with encryption (fully automated)**
+- Base installation with encryption (fully automated)
 
-- **Uses wayland instead of Xorg (sway window manager in our case)**
+- Uses wayland instead of Xorg (sway window manager in our case)
 
-- **random mac address at every boot**
+- random mac address at every boot
 
-- **Strong firewall rules (ongoing effort)**
+- Strong firewall rules (ongoing effort)
 
-- **Strong apparmor profiles (ongoing effort)**
+- Strong apparmor profiles (ongoing effort)
 
-- **System wide hardening (ongoing effort)**
+- System wide hardening (ongoing effort)
 
-- **System wide Tor routing (ongoing effort)**
+- System wide Tor routing (ongoing effort)
 
 
 
