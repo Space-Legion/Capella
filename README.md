@@ -13,7 +13,7 @@ Hidden "space" cloak is produced independently of, with no guarantee from, Arch 
 
 ### There are already some great hardened distributions like [whonix](https://www.whonix.org/) focussing on providing privacy, security and anonymity.
 
-- Yes, hidden cloak is bascially some shell scripts that runs top of arch linux, you always start tikering with it. It is up to the user and their threat model whether to use it or not. There are many ways in which it fundamentally fails.
+- Yes, hidden cloak is bascially some shell scripts that runs top of arch linux, you can always start tikering with it. It is up to the user and their threat model whether to use it or not. There are many ways in which it fundamentally fails.
 
 
 ### What is the purpose of hidden cloak ?
@@ -23,7 +23,7 @@ Hidden "space" cloak is produced independently of, with no guarantee from, Arch 
 
 ### What are the disadvantages ?
 
-- hidden cloak lacks awesome privacy and security enhancement like [Keystroke Deanonymization](https://github.com/vmonaco/kloak), [Boot Clock Randomization](https://github.com/Whonix/bootclockrandomization), A [hardened kernel](https://source.android.com/devices/architecture/kernel/hardening) and much more, But still you can implement it, if you have the knowledge or literally start learning by doing this process. In the long run this will definitely benefit you.
+- hidden cloak lacks major privacy and security enhancement like [Keystroke Deanonymization](https://github.com/vmonaco/kloak), [Boot Clock Randomization](https://github.com/Whonix/bootclockrandomization), A [hardened kernel](https://source.android.com/devices/architecture/kernel/hardening) and much more, But still you can implement it, if you have the knowledge or literally start learning by doing this process. In the long run this will definitely benefit you.
 
 
 ### Why Arch linux ?
@@ -40,11 +40,11 @@ Hidden "space" cloak is produced independently of, with no guarantee from, Arch 
 - These scripts are modular, not heavily integrated to each other in any manner. Tinker with them and use it as you wish
 
 
-### Capella highlights
+### Cloak script's highlights
 
 **Base installation with encryption (fully automated)**
 
-**Uses wayland instead of Xorg (sway window manager in our case)***
+**Uses wayland instead of Xorg (sway window manager in our case)**
 
 **random mac address at every boot**
 
