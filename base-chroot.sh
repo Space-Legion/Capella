@@ -29,7 +29,7 @@ passwd
 printf "Enter the password for root:\n" && root_pass
 
 
-pacman -S grub efibootmgr networkmanager --needed --noconfirm 
+pacman -Sy grub efibootmgr networkmanager --needed --noconfirm 
 
 
 sed -i 's/base udev autodetect modconf block filesystems keyboard fsck/base udev autodetect modconf block encrypt filesystems keyboard fsck/g' /etc/mkinitcpio.conf
