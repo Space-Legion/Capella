@@ -71,7 +71,7 @@ output * bg /$HOME/.config/1.jpg fill
 ### screenshoot
     bindsym Print exec grim
 
-### broswer
+### browser
     bindsym $mod+c exec chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
 
 
