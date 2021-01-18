@@ -2,11 +2,11 @@ sudo pacman -S sway termite wofi waybar mpv alsa-utils pcmanfm-gtk3 swaylock gvf
 
 chmod +x .config/wofi/* 
 
-cp -r .config /home/user/
+cp -r .config /$HOME/
 
-curl https://raw.githubusercontent.com/Space-Legion/assets/main/moon.jpg > /home/user/.config/1.jpg
+curl https://raw.githubusercontent.com/Space-Legion/assets/main/moon.jpg > /$HOME/.config/1.jpg
 
-curl https://raw.githubusercontent.com/Space-Legion/assets/main/space-shuttle.jpg > /home/user/.config/l.jpg
+curl https://raw.githubusercontent.com/Space-Legion/assets/main/space-shuttle.jpg > /$HOME/.config/l.jpg
 
 cd && sway
 
