@@ -1,11 +1,15 @@
 
-################fonts####################################
+# =================================================================================
+#    F O N T S
+# =================================================================================
 
 font pango:JetBrains Mono Bold 12px 
 
 
 
-################gaps#####################################
+# =================================================================================
+#    G A P S
+# =================================================================================
 
 default_border pixel 2
 titlebar_border_thickness 2
@@ -15,16 +19,21 @@ gaps inner 10
 
 
 
-################set mod key##############################
-
+# =================================================================================
+#    SET MOD KEY 
+# =================================================================================
 
 set $mod Mod4
 
 
-######################## Variables
+# =================================================================================
+#    V A R I A B L E S
+# =================================================================================
 
 
-############vim keybindings for home directions##########
+# =================================================================================
+#    VIM keybindings for home directions
+# =================================================================================
 
 set $left h
 set $down j
@@ -32,64 +41,97 @@ set $up k
 set $right l
 
 
-########### Your preferred terminal emulator#############
+# =================================================================================
+#    T E R M I N A L  E M U L A T O R
+# =================================================================================
 
 set $term termite
 
 
-
-#########Your preferred application launcher#############
-
+# =================================================================================
+#     L A U N C H E R
+# =================================================================================
 
 set $menu wofi --show drun,run -show-icons | xargs swaymsg exec --
 
 
-##############Output configuration####################### 
 
+# =================================================================================
+#    W A L L P A P E R
+# =================================================================================
 
 output * bg /$HOME/.config/1.jpg fill
 
-#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
 
-##################### Key bindings##########################
+# =================================================================================
+#    K E Y  B I N D I N G S
+# =================================================================================
+
+#=========
 # Basics:
+#=========
+
+#============================
+# Start a terminal
+#============================
+
+bindsym $mod+w exec $term
+
+#============================
+# Kill focused window
+#============================
+
+bindsym $mod+x kill
 
 
-#### Start a terminal
-    bindsym $mod+w exec $term
+#============================
+#  Start your launcher
+#============================
+
+bindsym $mod+space exec $menu
 
 
-#### Kill focused window
-    bindsym $mod+x kill
+#============================
+# S C R E E N S H O O T
+#============================
+
+bindsym Print exec grim
 
 
-### Start your launcher
-    bindsym $mod+space exec $menu
+#============================
+# B R O W S E R
+#============================
+    
+bindsym $mod+c exec chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
 
 
-### screenshoot
-    bindsym Print exec grim
+#===============================
+# M O U S E button for dragging.
+#===============================
 
-### browser
-    bindsym $mod+c exec chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
+floating_modifier $mod normal
 
 
-  
-  ### mouse button for dragging.
-    floating_modifier $mod normal
+#===================================
+# R E L O AD the configuration file
+#===================================
 
- 
- ###Reload the configuration file
-    bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload
 
- ###Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+#==========================================================
+# E X I T  S W A Y (logs you out of your Wayland session)
+#==========================================================
+
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 #
 
 
 
-####Gtk themes###################
+#==============================
+# G T K   T H E M E S
+#==============================
 
 set $gnome-schema org.gnome.desktop.interface
 
@@ -99,40 +141,65 @@ exec_always {
     gsettings set $gnome-schema cursor-theme Adwaita
     gsettings set $gnome-schema font-name JetBrains Mono Bold 10
     gsettings set $gnome-schema gtk-application-prefer-dark-theme true
-
+    
 }
 
 
 
 
 
-# Moving around:
+#===================================
+# M O V I N G  A R O U N D
+#===================================
 
-    # Move your focus around
+
+
+#===================================
+# M O V E your focus around
+#===================================
+  
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
+    
+    #==================================
     # Or use $mod+[up|down|left|right]
+    #==================================
+    
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
+    #=========================================================
+    # M O V E the focused window with the same, but add Shift
+    #=========================================================
+    
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
+    
+    #========================
     # Ditto, with arrow keys
+    #========================
+    
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
-#
-# Workspaces:
-#
-    # Switch to workspace
+
+   
+    #========================
+    # W O R K S P A C E S
+    #========================
+    
+    
+    #==========================
+    # S W I T C H to workspace
+    #==========================
+    
     bindsym $mod+1 workspace 1
     bindsym $mod+2 workspace 2
     bindsym $mod+3 workspace 3
@@ -143,7 +210,11 @@ exec_always {
     bindsym $mod+8 workspace 8
     bindsym $mod+9 workspace 9
     bindsym $mod+0 workspace 10
-    # Move focused container to workspace
+    
+    #========================================
+    # M O V E focused container to workspace
+    #========================================
+    
     bindsym $mod+Shift+1 move container to workspace 1
     bindsym $mod+Shift+2 move container to workspace 2
     bindsym $mod+Shift+3 move container to workspace 3
@@ -159,78 +230,124 @@ exec_always {
 
 
 
-
-# set specific windows to floating mode
+#========================================================================
+# S E T  S P E C I F I C  W I N D O W S  T O  F L O A T I N G  M O D E
+#========================================================================
 for_window [class="Tor Browser"]                      floating enable
 
 
 
 
 
+#==========================
+# L A Y O U T  S T U F F :
+#==========================   
+   
+   bindsym $mod+b splith
+   bindsym $mod+v splitv
 
-# Layout stuff:
+
+
+    #=======================================================================
+    # S W I T C H  the current container between different layout styles
+    #=======================================================================
     
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
-
-    # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
-   # bindsym $mod+w layout tabbed
+    # bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
+     
+     
+    #========================================================================= 
+    # M A K E  T H E  C U R R E N T  F O C U S  F U L L S C R E E N
+    #=========================================================================
+     
+     bindsym $mod+f fullscreen
 
-    # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
+   #=================================================================================
+   # T O G G L E  the current focus between  T I L I N G  and  F L O A T I N G  mode
+   #================================================================================= 
+    
     bindsym $mod+Shift+space floating toggle
 
-    # Swap focus between the tiling area and the floating area
+
+
+   #=================================================================================
+   # S W A P  focus between the tiling area and the floating area
+   #=================================================================================
+
     bindsym $mod+d focus mode_toggle
 
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
-#
-# Scratchpad:
-#
-    # Move the currently focused window to the scratchpad
+    #==============================================================================
+    # M O V E  focus to the parent container
+    #==============================================================================
+   
+     bindsym $mod+a focus parent
+
+
+#======================
+# S C R A T C H P A D:
+#======================
+    
+    
+    #=========================================================
+    # M O V E the currently focused window to the scratchpad
+    #=========================================================
+   
     bindsym $mod+Shift+minus move scratchpad
 
+
+    #===========================================================================
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
-#
+    #============================================================================
+   
+     bindsym $mod+minus scratchpad show
+
+
+#===========================
 # Resizing containers:
-#
+#===========================
+
 mode "resize" {
+    #=======================================
     # left will shrink the containers width
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
+    #=======================================
+   
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
-
+    
+    #==========================
     # Ditto, with arrow keys
+    #==========================
+    
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
-
+    
+    #=======================
     # Return to default mode
+    #=======================
+    
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
 
-#
-# Status Bar:
-#
-# Read `man 5 sway-bar` for more information about this section.
+#=====================================
+# S T A T U S  B A R:
+#=====================================
+
+
 bar {
    
    swaybar_command waybar
-
 }
 
 
