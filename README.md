@@ -3,7 +3,7 @@
 Hidden "space" cloak is produced independently of, with no guarantee from, Arch Linux or The Tor project . Hidden cloak is created by a few individuals in their spare time. Hidden cloak was created by self-taught hobbyists in their spare time, without the backing of any particular formal certification or training. Although Hidden cloak attempts to be usable as possible, there are many ways in which it fails.
 
 
-**It is recommended to install this in a Virtualization software like KVM or virtualbox**
+**It is recommended to install this in a Virtualization software like KVM or virtualbox.**
 
 
 #### Why you should use hidden cloak?
