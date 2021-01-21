@@ -46,15 +46,11 @@ Hidden "space" cloak is produced independently of, with no guarantee from, Arch 
 
 - Uses wayland instead of Xorg (sway window manager in our case)
 
-- random mac address at every boot
-
-- Strong firewall rules (ongoing effort)
+- Strong firewall rules 
 
 - Strong apparmor profiles (ongoing effort)
 
 - System wide hardening (ongoing effort)
-
-- System wide Tor routing (ongoing effort)
 
 
 
