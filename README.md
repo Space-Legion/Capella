@@ -4,6 +4,7 @@
 
 Space cloak is produced independently of, with no guarantee from, Arch Linux or The Tor project. Hidden cloak is created by a few individuals in their spare time. Hidden cloak was created by self-taught hobbyists in their spare time, without the backing of any particular formal certification or training. Although Hidden cloak attempts to be usable as possible, there are many ways in which it fails.
 
+<br>
 
 **It is recommended to install this in a Virtualization software like KVM or virtualbox.**
 
@@ -44,7 +45,7 @@ chmod +x base.sh && ./base.sh
 
 #### What are the disadvantages ?
 
-- Space cloak lacks major privacy and security enhancement like [Keystroke Deanonymization](https://github.com/vmonaco/kloak), [Boot Clock Randomization](https://github.com/Whonix/bootclockrandomization), System wide tor routing, A [hardened kernel](https://source.android.com/devices/architecture/kernel/hardening) and much more, But still you can implement it, if you have the knowledge or literally start learning by doing this process. In the long run this will definitely benefit you.
+- Space cloak lacks major privacy and security enhancement like [Keystroke Deanonymization](https://github.com/vmonaco/kloak), [Boot Clock Randomization](https://github.com/Whonix/bootclockrandomization), System wide tor routing, [Hardened memory allocator](https://github.com/Whonix/hardened_malloc),  A [hardened kernel](https://source.android.com/devices/architecture/kernel/hardening) and much more, But still you can implement it, if you have the knowledge or literally start learning by doing this process. In the long run this will definitely benefit you.
 
 
 #### Why Arch linux ?
