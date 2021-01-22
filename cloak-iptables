@@ -1,0 +1,146 @@
+#!/bin/bash
+
+set -o pipefail
+
+
+printf "
+Setting up firewall rules
+
+"
+
+
+## IPv4 DEFAULTS
+
+iptables -P INPUT DROP
+
+iptables -P FORWARD DROP
+
+
+## IPv4 PREPARATIONS
+## Flush old rules.
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+
+## IPv4 DROP INVALID INCOMING PACKAGES
+## DROP INVALID
+iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+iptables -A INPUT -m state --state INVALID -j DROP
+
+## DROP INVALID SYN PACKETS
+iptables -A INPUT -p tcp --tcp-flags ALL ACK,RST,SYN,FIN -j DROP
+iptables -A INPUT -p tcp --tcp-flags SYN,FIN SYN,FIN -j DROP
+iptables -A INPUT -p tcp --tcp-flags SYN,RST SYN,RST -j DROP
+
+## DROP PACKETS WITH INCOMING FRAGMENTS. THIS ATTACK ONCE RESULTED IN KERNEL PANICS
+iptables -A INPUT -f -j DROP
+
+## DROP INCOMING MALFORMED XMAS PACKETS
+iptables -A INPUT -p tcp --tcp-flags ALL ALL -j DROP
+
+## DROP INCOMING MALFORMED NULL PACKETS
+iptables -A INPUT -p tcp --tcp-flags ALL NONE -j DROP
+
+
+## IPv4 INPUT
+## Traffic on the loopback interface is accepted.
+iptables -A INPUT -i lo -j ACCEPT
+
+## Established incoming connections are accepted.
+iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
+
+
+
+
+
+## IPv4 FORWARD
+## Reject everything.
+iptables -A FORWARD -j REJECT --reject-with icmp-admin-prohibited
+
+iptables -A OUTPUT -m conntrack --ctstate INVALID -j REJECT --reject-with icmp-admin-prohibited
+iptables -A OUTPUT -m state --state INVALID -j REJECT --reject-with icmp-admin-prohibited
+#iptables -A OUTPUT ! -o lo ! -d 127.0.0.1 ! -s 127.0.0.1 -p tcp -m tcp --tcp-flags ACK,FIN ACK,FIN -j REJECT --reject-with icmp-admin-prohibited
+#iptables -A OUTPUT ! -o lo ! -d 127.0.0.1 ! -s 127.0.0.1 -p tcp -m tcp --tcp-flags ACK,RST ACK,RST -j REJECT --reject-with icmp-admin-prohibited
+
+## DROP INVALID SYN PACKETS
+iptables -A OUTPUT -p tcp --tcp-flags ALL ACK,RST,SYN,FIN -j REJECT --reject-with icmp-admin-prohibited
+iptables -A OUTPUT -p tcp --tcp-flags SYN,FIN SYN,FIN -j REJECT --reject-with icmp-admin-prohibited
+iptables -A OUTPUT -p tcp --tcp-flags SYN,RST SYN,RST -j REJECT --reject-with icmp-admin-prohibited
+
+## DROP PACKETS WITH INCOMING FRAGMENTS. THIS ATTACK ONCE RESULTED IN KERNEL PANICS
+iptables -A OUTPUT -f -j REJECT --reject-with icmp-admin-prohibited
+
+## DROP INCOMING MALFORMED XMAS PACKETS
+iptables -A OUTPUT -p tcp --tcp-flags ALL ALL -j REJECT --reject-with icmp-admin-prohibited
+
+## DROP INCOMING MALFORMED NULL PACKETS
+iptables -A OUTPUT -p tcp --tcp-flags ALL NONE -j REJECT --reject-with icmp-admin-prohibited
+
+
+## IPv4 OUTPUT
+
+## Existing connections are accepted.
+iptables -A OUTPUT -m state --state ESTABLISHED -j ACCEPT
+
+
+iptables-save -f /etc/iptables/iptables.rules
+
+
+systemctl enable iptables.service || exit
+
+systemctl start iptables.service || exit
+########################################## ipv4-completed
+
+
+printf "IPV4 completed
+
+"
+
+###################
+## IPv6
+###################
+
+## Policy DROP for all traffic as fallback.
+ip6tables -P INPUT DROP
+ip6tables -P OUTPUT DROP
+ip6tables -P FORWARD DROP
+
+## Flush old rules.
+ip6tables -F
+ip6tables -X
+ip6tables -t mangle -F
+ip6tables -t mangle -X
+
+## Drop/reject all other traffic.
+ip6tables -A INPUT -j DROP
+## --reject-with icmp-admin-prohibited not supported by ip6tables
+ip6tables -A OUTPUT -j REJECT
+## --reject-with icmp-admin-prohibited not supported by ip6tables
+ip6tables -A FORWARD -j REJECT
+
+
+ip6tables-save -f /etc/iptables/ip6tables.rules
+
+systemctl enable ip6tables.service || exit
+
+systemctl start ip6tables.service || exit
+########################################## ipv6-completed
+
+printf "IPV6 completed
+
+"
+
+printf "Firewall is now configured and active
+
+"
+
+
+
+
+
+
+
+

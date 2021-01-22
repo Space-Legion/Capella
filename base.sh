@@ -14,7 +14,7 @@ enc_pass
 
 
 single_disk () {
-DISK="$(lsblk --list | grep 'disk' | awk '{printf $1}')"
+DISK="$(lsblk --list | grep 'disk' | awk '{print $1}')"
     while true; do
 		read -p "$* >install on $DISK [y/n]: " yn
 		case $yn in
@@ -37,7 +37,7 @@ disk_partition
 multi_disk() {
 
 prompt="Please select the disk to install:"
-options=( $(lsblk --list | grep 'disk' | awk '{ printf $1}') )
+options=( $(lsblk --list | grep 'disk' | awk '{ print $1}') )
 
 PS3="$prompt "
 select opt in "${options[@]}" "Enter manually" ; do

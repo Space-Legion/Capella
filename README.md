@@ -1,29 +1,51 @@
-**Hidden "space" cloak is an experimental project aims to provide minimal supplement for hardening linux with a few shell scripts** 
+<h3 align="center">Space cloak is an experimental project aims to provide minimal supplement for hardening linux with a few shell scripts</h3>
 
-Hidden "space" cloak is produced independently of, with no guarantee from, Arch Linux or The Tor project . Hidden cloak is created by a few individuals in their spare time. Hidden cloak was created by self-taught hobbyists in their spare time, without the backing of any particular formal certification or training. Although Hidden cloak attempts to be usable as possible, there are many ways in which it fails.
+<br>
 
+Space cloak is produced independently of, with no guarantee from, Arch Linux or The Tor project. Hidden cloak is created by a few individuals in their spare time. Hidden cloak was created by self-taught hobbyists in their spare time, without the backing of any particular formal certification or training. Although Hidden cloak attempts to be usable as possible, there are many ways in which it fails.
+
+<br>
 
 **It is recommended to install this in a Virtualization software like KVM or virtualbox.**
 
+## How to use
 
-#### Why you should use hidden cloak?
+First, boot with the [lastest Arch Linux ISO](https://www.archlinux.org/download/) in [Virtualbox](https://wiki.archlinux.org/index.php/VirtualBox) or [KVM](https://wiki.archlinux.org/index.php/KVM)
+
+For some reasons, if you are planning to install this on bare metal then make sure you have Internet connection on the Arch iso. If you have a wireless connection the [`iwctl`](https://wiki.archlinux.org/index.php/Iwd#iwctl) command might be useful to you. You can also read the [Network configuration](https://wiki.archlinux.org/index.php/Network_configuration) from the Arch Linux guide for more detailed instructions.
+
+Install [Git](https://wiki.archlinux.org/index.php/Git) then clone this repo.
+
+<br>
+
+To, launch the script:
+
+```bash
+
+chmod +x base.sh && ./base.sh
+
+```
+
+
+
+#### Why you should use space cloak?
 
 - user-centrality. (because, arch linux)
 
 
 #### There are already some great hardened distributions like [whonix](https://www.whonix.org/) focussing on providing privacy, security and anonymity.
 
-- Yes, hidden cloak is bascially some shell scripts that runs top of arch linux, you can always start tikering with it. It is up to the user and their threat model whether to use it or not. There are many ways in which it fundamentally fails.
+- Yes, space cloak is bascially some shell scripts that runs top of arch linux, you can always start tikering with it. It is up to the user and their threat model whether to use it or not. There are many ways in which it fundamentally fails.
 
 
-#### What is the purpose of hidden cloak ?
+#### What is the purpose of space cloak ?
 
-- In the beginning, hidden cloak was just an install script for arch linux with encryption by default (everything automated) and later we decided to tinker with it and we took a step further to improve by implementing more security and privacy oriented features.
+- In the beginning, space cloak was just an install script for arch linux with encryption by default (everything automated) and later we decided to tinker with it and we took a step further to improve by implementing more security and privacy oriented features.
 
 
 #### What are the disadvantages ?
 
-- hidden cloak lacks major privacy and security enhancement like [Keystroke Deanonymization](https://github.com/vmonaco/kloak), [Boot Clock Randomization](https://github.com/Whonix/bootclockrandomization), A [hardened kernel](https://source.android.com/devices/architecture/kernel/hardening) and much more, But still you can implement it, if you have the knowledge or literally start learning by doing this process. In the long run this will definitely benefit you.
+- Space cloak lacks major privacy and security enhancement like [Keystroke Deanonymization](https://github.com/vmonaco/kloak), [Boot Clock Randomization](https://github.com/Whonix/bootclockrandomization), System wide tor routing, [Hardened memory allocator](https://github.com/Whonix/hardened_malloc),  A [hardened kernel](https://source.android.com/devices/architecture/kernel/hardening) and much more, But still you can implement it, if you have the knowledge or literally start learning by doing this process. In the long run this will definitely benefit you.
 
 
 #### Why Arch linux ?
@@ -46,20 +68,23 @@ Hidden "space" cloak is produced independently of, with no guarantee from, Arch 
 
 - Uses wayland instead of Xorg (sway window manager in our case)
 
-- random mac address at every boot
-
-- Strong firewall rules (ongoing effort)
+- Strong firewall rules 
 
 - Strong apparmor profiles (ongoing effort)
 
 - System wide hardening (ongoing effort)
 
-- System wide Tor routing (ongoing effort)
-
 
 
 
 #### Maintained by [yperta](https://github.com/yperta), [S-thirtyfive](https://github.com/S-ThirtyFive) and [Mr-mittens](https://github.com/Mr-Mittens)
+
+
+Thanks to 
+
+- [Arch Linux security](https://wiki.archlinux.org/index.php/Security)
+
+- [Whonix wiki](https://www.whonix.org/wiki/Documentation)
 
 
 ***Your pull requests are always welcome***
